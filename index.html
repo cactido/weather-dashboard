@@ -12,7 +12,7 @@
 
 <body>
     <div class="container px-2 mt-2">
-        <div class="row">
+        <div class="row no-gutters">
             <!-- title bar -->
             <div class="col-12" id="title-bar">
                 Weather Dashboard
@@ -22,44 +22,42 @@
         <div class="row mt-2">
             <!-- left column -->
             <div class="col-4">
-                <div class="border border-primary">
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                </div>
+                <!-- search -->
+                <h2>Search for a City:</h2>
+                <input type="text" class="border border-dark rounded w-100 mb-2" placeholder="Enter a city" />
+                <button class="btn btn-primary w-100" id="search-button">Search</button>
+                <!-- -->
             </div>
-            <div class="row col-8">
-                <!-- weather card -->
-                <div class="col-12 card border border-primary">
+            <div class="row col-8 pr-0">
+                <!-- main weather display box -->
+                <div class="col-12 border">
                     <h5 class="card-title">Weather Card</h5>
                 </div>
                 <!-- bottom forecast columns -->
                 <div class="row mt-2">
                     <div class="col">
-                        <div class="p-1 border bg-light">Custom column padding
-                            1
+                        <div class="p-1 forecast">
+                            <h5 id="forecast-1"></h5>
                         </div>
                     </div>
                     <div class="col">
-                        <div class="p-1 border bg-light">Custom column padding
-                            1
+                        <div class="p-1 forecast">
+                            <h5 id="forecast-2"></h5>
                         </div>
                     </div>
                     <div class="col">
-                        <div class="p-1 border bg-light">Custom column padding
-                            1
+                        <div class="p-1 forecast">
+                            <h5 id="forecast-3"></h5>
                         </div>
                     </div>
                     <div class="col">
-                        <div class="p-1 border bg-light">Custom column padding
-                            1
+                        <div class="p-1 forecast">
+                            <h5 id="forecast-4"></h5>
                         </div>
                     </div>
                     <div class="col">
-                        <div class="p-1 border bg-light">Custom column padding
-                            1
+                        <div class="p-1 forecast">
+                            <h5 id="forecast-5"></h5>
                         </div>
                     </div>
                 </div>
