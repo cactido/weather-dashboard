@@ -1,0 +1,7 @@
+#title-bar {
+    background-image: linear-gradient(to right, rgb(44, 30, 177) , rgb(35, 48, 126));
+    font-size: 26px;
+    font-weight: bold;
+    text-align: center;
+    color: whitesmoke;
+}
