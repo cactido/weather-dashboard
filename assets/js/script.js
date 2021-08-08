@@ -10,11 +10,14 @@ function findCity(city) {
                 if (data.length === 0) {
                     alert('City not found, please try again.');
                 } else if (data.length === 1) {         //automatically save longitude and latitude
-                    var cityLocation = {                //if there is only one result to be used
+                    var cityInformation = {                //if there is only one result to be used
                         'lon': data[0].lon,             //in the weather forecast API call
-                        'lat': data[0].lat
+                        'lat': data[0].lat,
+                        'name': data[0].name,
+                        'state': data[0].state,
+                        'country': data[0].country
                     };
-                    weatherLookup(cityLocation);
+                    weatherLookup(cityInformation);
                 } else {
                     //if there is more than one result, loop through them and prompt the user
                     //with each choice then log the location data for the selected city
@@ -25,14 +28,17 @@ function findCity(city) {
                         } else {
                             var prompt = confirm('Did you mean ' + data[i].name + ' (' + data[i].country + ')?');
                         }
-                        
+
                         //if the user confirms, log the location data and exit the loop
                         if (prompt) {
-                            var cityLocation = {
+                            var cityInformation = {
                                 'lon': data[i].lon,
-                                'lat': data[i].lat
+                                'lat': data[i].lat,
+                                'name': data[i].name,
+                                'state': data[i].state,
+                                'country': data[i].country
                             }
-                            weatherLookup(cityLocation);
+                            weatherLookup(cityInformation);
                             break;
                         }
                     }
@@ -42,9 +48,25 @@ function findCity(city) {
             })
         })
 }
-
+//calls Open Weather one-call-api with the retrieved location data and displays it
 function weatherLookup(loc) {
     console.log(loc.lon, loc.lat);
+    //retrieve the weather data for the searched location from Open Weather
+    fetch('https://api.openweathermap.org/data/2.5/onecall?lat=' + loc.lat + '&lon=' + loc.lon + '&exclude=minutely,hourly,alerts&units=imperial&appid=' + API_KEY)
+    .then(res => res.json())
+    .then(weatherData => weatherDisplay(loc, weatherData))
+    .catch((err) => console.log(err));
+}
+
+function weatherDisplay(loc, data) {
+    console.log(data);
+    date = getDayMonth(data.current.dt);
+}
+//converts from Unix timestamps and returns a string with the day and month
+function getDayMonth(d) {
+    var date = new Date(d * 1000);
+    var dayMonth = (date.getMonth() + 1) + '/' + (date.getDate()); 
+    return dayMonth;
 }
 
 //initiates an API call when the city search form is submitted
