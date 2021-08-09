@@ -3,12 +3,20 @@
     color: whitesmoke;
 }
 
+.five-day {
+    text-align: center;
+}
+
 #weather-box h2 {
     font-weight: bold;
 }
 
 #weather-box-title {
     display: inline;
+}
+
+.forecast-title {
+    font-weight: bold;
 }
 
 #title-bar {

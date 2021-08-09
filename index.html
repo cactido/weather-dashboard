@@ -25,9 +25,12 @@
                 <!-- search -->
                 <h2>Search for a City:</h2>
                 <form id="city-search-form">
-                    <input type="text" class="border border-dark rounded w-100 mb-2" id="search-input" placeholder="Enter a city" />
+                    <input type="text" class="border border-dark rounded w-100 mb-2" id="search-input"
+                        placeholder="Enter a city" />
                     <button type="submit" class="btn btn-primary w-100" id="search-button">Search</button>
                 </form>
+                <hr />
+                <section id="search-history"></section>
                 <!-- -->
             </div>
             <div class="row col-8 no-gutters">
@@ -35,7 +38,7 @@
                 <div class="col-12 border p-1" id="weather-box">
                     <h2 id="weather-box-title"></h2><span id="weather-box-icon"></span>
                     <br />
-                    <span class="temp"></span>
+                    <span class="temp">Select a city or search for a new one to get started!</span>
                     <br />
                     <span class="wind"></span>
                     <br />
@@ -43,13 +46,20 @@
                     <br />
                     <span class="uv-index"></span>
                 </div>
+                <!-- five day forecast title bar -->
+                <div class="col-12 p-1 five-day">
+                    <h3>Five Day Forecast</h3>
+                </div>
                 <!-- bottom forecast columns -->
                 <div class="col mt-1 mr-1">
                     <div class="p-1 forecast" id="forecast-1">
                         <h5 class="forecast-title"></h5>
                         <span class="forecast-icon"></span>
+                        <br />
                         <span class="temp"></span>
+                        <br />
                         <span class="wind"></span>
+                        <br />
                         <span class="humidity"></span>
                     </div>
                 </div>
@@ -57,8 +67,11 @@
                     <div class="p-1 forecast" id="forecast-2">
                         <h5 class="forecast-title"></h5>
                         <span class="forecast-icon"></span>
+                        <br />
                         <span class="temp"></span>
+                        <br />
                         <span class="wind"></span>
+                        <br />
                         <span class="humidity"></span>
                     </div>
                 </div>
@@ -66,8 +79,11 @@
                     <div class="p-1 forecast" id="forecast-3">
                         <h5 class="forecast-title"></h5>
                         <span class="forecast-icon"></span>
+                        <br />
                         <span class="temp"></span>
+                        <br />
                         <span class="wind"></span>
+                        <br />
                         <span class="humidity"></span>
                     </div>
                 </div>
@@ -75,8 +91,11 @@
                     <div class="p-1 forecast" id="forecast-4">
                         <h5 class="forecast-title"></h5>
                         <span class="forecast-icon"></span>
+                        <br />
                         <span class="temp"></span>
+                        <br />
                         <span class="wind"></span>
+                        <br />
                         <span class="humidity"></span>
                     </div>
                 </div>
@@ -84,8 +103,11 @@
                     <div class="p-1 forecast" id="forecast-5">
                         <h5 class="forecast-title"></h5>
                         <span class="forecast-icon"></span>
+                        <br />
                         <span class="temp"></span>
+                        <br />
                         <span class="wind"></span>
+                        <br />
                         <span class="humidity"></span>
                     </div>
                 </div>

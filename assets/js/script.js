@@ -13,9 +13,7 @@ function findCity(city) {
                     var cityInformation = {                //if there is only one result to be used
                         'lon': data[0].lon,             //in the weather forecast API call
                         'lat': data[0].lat,
-                        'name': data[0].name,
-                        'state': data[0].state,
-                        'country': data[0].country
+                        'name': data[0].name
                     };
                     weatherLookup(cityInformation);
                 } else {
@@ -34,9 +32,7 @@ function findCity(city) {
                             var cityInformation = {
                                 'lon': data[i].lon,
                                 'lat': data[i].lat,
-                                'name': data[i].name,
-                                'state': data[i].state,
-                                'country': data[i].country
+                                'name': data[i].name
                             }
                             weatherLookup(cityInformation);
                             break;
@@ -48,7 +44,7 @@ function findCity(city) {
             })
         })
 }
-//calls Open Weather one-call-api with the retrieved location data and displays it
+//calls Open Weather one-call-api with the retrieved location data and sends it to the display function
 function weatherLookup(loc) {
     //retrieve the weather data for the searched location from Open Weather
     fetch('https://api.openweathermap.org/data/2.5/onecall?lat=' + loc.lat + '&lon=' + loc.lon + '&exclude=minutely,hourly,alerts&units=imperial&appid=' + API_KEY)
@@ -56,7 +52,7 @@ function weatherLookup(loc) {
     .then(weatherData => weatherDisplay(loc, weatherData))
     .catch((err) => console.log(err));
 }
-
+//renders the information to the main page
 function weatherDisplay(loc, data) {
     //set the main weather display to the city and today's date
     $('#weather-box-title').text(loc.name + ' (' + getDayMonth(data.current.dt) + ')');
@@ -67,6 +63,17 @@ function weatherDisplay(loc, data) {
     $('#weather-box > .wind').text('Wind: ' + data.current.wind_speed + ' MPH');
     $('#weather-box > .humidity').text('Humidity: ' + data.current.humidity + '%');
     $('#weather-box > .uv-index').text('UV Index: ' + data.current.uvi);
+    //loops through the next five days and sets the title, icon, temperature, wind, and humidity for the 5 day forecast
+    for (let i = 0; i < 5; i++) {
+        //select the element with the id of forecast-n
+        var current = $('body').find('#forecast-' + (i + 1));
+        //set each displayed element for the current forecast day
+        current.find('.forecast-title').text(getDayMonth(data.daily[i + 1].dt));
+        current.find('.forecast-icon').html('<img src="http://openweathermap.org/img/wn/' + data.daily[i + 1].weather[0].icon + '.png" />');
+        current.find('.temp').text('Temp: ' + data.daily[i + 1].temp.day + '°F');
+        current.find('.wind').text('Wind: ' + data.daily[i + 1].wind_speed + ' MPH');
+        current.find('.humidity').text('Humidity: ' + data.daily[i + 1].humidity + '%');
+    }
 }
 //converts from Unix timestamps and returns a string with the day and month
 function getDayMonth(d) {
@@ -81,3 +88,12 @@ $('#city-search-form').on('submit', function (event) {
     var city = $('#search-input').val();
     findCity(city);
 });
+
+function startUp() {
+    var searchHistory = [];
+    if (Object.keys(localStorage).length) {
+        
+    }
+}
+
+startUp();
