@@ -3,6 +3,14 @@
     color: whitesmoke;
 }
 
+#weather-box h2 {
+    font-weight: bold;
+}
+
+#weather-box-title {
+    display: inline;
+}
+
 #title-bar {
     background-image: linear-gradient(to right, rgb(44, 30, 177) , rgb(35, 48, 126));
     font-size: 26px;

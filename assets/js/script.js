@@ -50,7 +50,6 @@ function findCity(city) {
 }
 //calls Open Weather one-call-api with the retrieved location data and displays it
 function weatherLookup(loc) {
-    console.log(loc.lon, loc.lat);
     //retrieve the weather data for the searched location from Open Weather
     fetch('https://api.openweathermap.org/data/2.5/onecall?lat=' + loc.lat + '&lon=' + loc.lon + '&exclude=minutely,hourly,alerts&units=imperial&appid=' + API_KEY)
     .then(res => res.json())
@@ -59,8 +58,15 @@ function weatherLookup(loc) {
 }
 
 function weatherDisplay(loc, data) {
-    console.log(data);
-    date = getDayMonth(data.current.dt);
+    //set the main weather display to the city and today's date
+    $('#weather-box-title').text(loc.name + ' (' + getDayMonth(data.current.dt) + ')');
+    //creates an img tag for the weather icon
+    $('#weather-box-icon').html('<img src="http://openweathermap.org/img/wn/' + data.current.weather[0].icon + '.png" />')
+    //insert the temperature, wind, humidity and UV index
+    $('#weather-box > .temp').text('Temp: ' + data.current.temp + '°F');
+    $('#weather-box > .wind').text('Wind: ' + data.current.wind_speed + ' MPH');
+    $('#weather-box > .humidity').text('Humidity: ' + data.current.humidity + '%');
+    $('#weather-box > .uv-index').text('UV Index: ' + data.current.uvi);
 }
 //converts from Unix timestamps and returns a string with the day and month
 function getDayMonth(d) {
