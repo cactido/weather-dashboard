@@ -12,7 +12,7 @@ Weather Dashboard helps you stay up-to-day with the current weather and five day
 
 ## Links
 - [Deployed Page](https://cactido.github.io/weather-dashboard)
-- [GitHub Repository](https://cactido.github.io/weather-dashboard/)
+- [GitHub Repository](https://github.com/cactido/weather-dashboard)
 
 ***
 
