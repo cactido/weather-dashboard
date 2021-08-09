@@ -85,19 +85,20 @@ function getDayMonth(d) {
     return dayMonth;
 }
 //puts new city at the beginning of the searchHistory array and removes the last entry if the array is longer
-//than 11 items
+//than 10 items
 function updateSearchHistory(city) {
     searchHistory.splice(0, 0, city);
-    if (searchHistory.length > 11) {
+    if (searchHistory.length > 10) {
         searchHistory.pop();
     }
+    localStorage.setItem('current', JSON.stringify(city));
     localStorage.setItem('history', JSON.stringify(searchHistory));
     console.log('search history updated: ', searchHistory)
     showSearchHistory();
 }
 //renders search history as buttons below the search form
 function showSearchHistory () {
-    //#search-history
+    $('#search-history').empty();
     for (let i = 0; i < searchHistory.length; i++) {
         $('#search-history').append('<button type="submit" class="btn btn-secondary w-100 mb-1" id="' + searchHistory[i].name + '" value="' + searchHistory[i].name + '">' + searchHistory[i].name + '</button>');
     }
@@ -107,7 +108,7 @@ function startUp() {
     //checks for search history in localStorage and, if it exists, renders the most recent city's weather
     if (Object.keys(localStorage).length) {
         searchHistory = JSON.parse(localStorage.getItem('history'));
-        weatherLookup(searchHistory[0]);
+        weatherLookup(JSON.parse(localStorage.getItem('current')));
     }
     console.log('startup history:', searchHistory);
     showSearchHistory();
@@ -121,3 +122,16 @@ $('#city-search-form').on('submit', function (event) {
     var city = $('#search-input').val();
     findCity(city);
 });
+//when a history button is clicked, sets it as the current view
+$('#search-history > button').on('click', function (event) {
+    event.preventDefault();  
+
+    var clickedCity = $(this).attr('value');
+    //find the matching object in the search history and display it
+    for (let i = 0; i < searchHistory.length; i++) {
+        if (searchHistory[i].name === clickedCity) {
+            localStorage.setItem('current', JSON.stringify(searchHistory[i]));
+            weatherLookup(searchHistory[i]);
+        }
+    }
+}) 
