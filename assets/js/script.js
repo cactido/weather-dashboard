@@ -4,7 +4,7 @@ var searchHistory = [];
 //makes an API call with city name in the search box
 function findCity(city) {
     //fetch up to five results by city name from Open Weather
-    fetch('http://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=5&appid=c2762dacd6fce5141196e5b409b3fb43')
+    fetch('https://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=5&appid=c2762dacd6fce5141196e5b409b3fb43')
         .then(function (res) {
             res.json().then(function (data) {
                 //generate an alert if no results are returned
