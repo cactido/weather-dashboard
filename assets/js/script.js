@@ -100,7 +100,7 @@ function updateSearchHistory(city) {
 function showSearchHistory () {
     $('#search-history').empty();
     for (let i = 0; i < searchHistory.length; i++) {
-        $('#search-history').append('<button type="submit" class="btn btn-secondary w-100 mb-1" id="' + searchHistory[i].name + '" value="' + searchHistory[i].name + '">' + searchHistory[i].name + '</button>');
+        $('#search-history').append('<button type="submit" class="btn btn-secondary w-100 mb-1 search-history-button" id="' + searchHistory[i].name + '" value="' + searchHistory[i].name + '">' + searchHistory[i].name + '</button>');
     }
 }
 //loads search history from local storage
@@ -111,11 +111,10 @@ function startUp() {
         weatherLookup(JSON.parse(localStorage.getItem('current')));
     }
     console.log('startup history:', searchHistory);
-    showSearchHistory();
+    if (searchHistory) {
+        showSearchHistory();
+    }
 }
-
-startUp();
-
 //initiates an API call when the city search form is submitted
 $('#city-search-form').on('submit', function (event) {
     event.preventDefault();
@@ -123,7 +122,7 @@ $('#city-search-form').on('submit', function (event) {
     findCity(city);
 });
 //when a history button is clicked, sets it as the current view
-$('#search-history > button').on('click', function (event) {
+$('body').on('click', '.search-history-button', function (event) {
     event.preventDefault();  
 
     var clickedCity = $(this).attr('value');
@@ -135,3 +134,5 @@ $('#search-history > button').on('click', function (event) {
         }
     }
 }) 
+
+startUp();
