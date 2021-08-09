@@ -1,4 +1,5 @@
 const API_KEY = 'c2762dacd6fce5141196e5b409b3fb43';
+var searchHistory = [];
 
 //makes an API call with city name in the search box
 function findCity(city) {
@@ -15,6 +16,7 @@ function findCity(city) {
                         'lat': data[0].lat,
                         'name': data[0].name
                     };
+                    updateSearchHistory(cityInformation);
                     weatherLookup(cityInformation);
                 } else {
                     //if there is more than one result, loop through them and prompt the user
@@ -34,6 +36,7 @@ function findCity(city) {
                                 'lat': data[i].lat,
                                 'name': data[i].name
                             }
+                            updateSearchHistory(cityInformation);
                             weatherLookup(cityInformation);
                             break;
                         }
@@ -45,11 +48,11 @@ function findCity(city) {
         })
 }
 //calls Open Weather one-call-api with the retrieved location data and sends it to the display function
-function weatherLookup(loc) {
+function weatherLookup(city) {
     //retrieve the weather data for the searched location from Open Weather
-    fetch('https://api.openweathermap.org/data/2.5/onecall?lat=' + loc.lat + '&lon=' + loc.lon + '&exclude=minutely,hourly,alerts&units=imperial&appid=' + API_KEY)
+    fetch('https://api.openweathermap.org/data/2.5/onecall?lat=' + city.lat + '&lon=' + city.lon + '&exclude=minutely,hourly,alerts&units=imperial&appid=' + API_KEY)
     .then(res => res.json())
-    .then(weatherData => weatherDisplay(loc, weatherData))
+    .then(weatherData => weatherDisplay(city, weatherData))
     .catch((err) => console.log(err));
 }
 //renders the information to the main page
@@ -81,6 +84,34 @@ function getDayMonth(d) {
     var dayMonth = (date.getMonth() + 1) + '/' + (date.getDate()); 
     return dayMonth;
 }
+//puts new city at the beginning of the searchHistory array and removes the last entry if the array is longer
+//than 11 items
+function updateSearchHistory(city) {
+    searchHistory.splice(0, 0, city);
+    if (searchHistory.length > 11) {
+        searchHistory.pop();
+    }
+    localStorage.setItem('history', JSON.stringify(searchHistory));
+    console.log('search history updated: ', searchHistory)
+    showSearchHistory();
+}
+//
+function showSearchHistory () {
+    //#search-history
+    
+}
+//loads search history from local storage
+function startUp() {
+    //checks for search history in localStorage and, if it exists, renders the most recent city's weather
+    if (Object.keys(localStorage).length) {
+        searchHistory = JSON.parse(localStorage.getItem('history'));
+        weatherLookup(searchHistory[0]);
+    }
+    console.log('startup history:', searchHistory);
+    showSearchHistory();
+}
+
+startUp();
 
 //initiates an API call when the city search form is submitted
 $('#city-search-form').on('submit', function (event) {
@@ -88,12 +119,3 @@ $('#city-search-form').on('submit', function (event) {
     var city = $('#search-input').val();
     findCity(city);
 });
-
-function startUp() {
-    var searchHistory = [];
-    if (Object.keys(localStorage).length) {
-        
-    }
-}
-
-startUp();
